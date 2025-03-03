@@ -10,8 +10,8 @@ const dbConfig = {
     database: 'mira_log'
 };
 
-const API_URL = 'https://mira-admin.smatec.com.vn/admin/devices?mgw_id=&name=&fvers=&area_path=4651&server=&state=0&offset=0&limit=2000';
-const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA0NDg1OTUsImlhdCI6MTc0MDM2MjE5NSwiaWQiOiJqcnpwZTJlaDEwbWF1eXkwdGJ1IiwiaXNzIjoibWlyYXYzIiwicm9sZSI6Iiw2MCw2Miw4MCwifQ.yxN-8U7QTdqdhj5KlZNRMBxHJbXYOxzeagIHeQ2I0TA';
+const API_URL = 'https://mira-admin.smatec.com.vn/admin/devices?mgw_id=&name=&fvers=&area_path=3682&server=&state=0&offset=0&limit=2000';
+const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA3MzI0MjYsImlhdCI6MTc0MDY0NjAyNiwiaWQiOiJqcnpwZTJlaDEwbWF1eXkwdGJ1IiwiaXNzIjoibWlyYXYzIiwicm9sZSI6Iiw2MCw2Miw4MCwifQ.DYnmd9-uz9lgd0XMN1J2w44SDNdNxdbVbJqL86S8k6I';
 
 async function fetchAndInsertData() {
     // try {
