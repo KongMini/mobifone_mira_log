@@ -5,6 +5,7 @@
     "mysql2": "^3.12.0",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.10.0",
+    "nodemailer-ntlm-auth": "^1.0.4",
     "xlsx": "^0.18.5"
   }
 }

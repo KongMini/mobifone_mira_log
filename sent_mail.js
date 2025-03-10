@@ -1,31 +1,42 @@
 const nodemailer = require('nodemailer');
-require('dotenv').config();
+const ntlmAuth = require('nodemailer-ntlm-auth');
 
 let transporter = nodemailer.createTransport({
-    host: "mail.mobifone.vn", // SMTP Server
-    port: 587, // Cổng SMTP (587 cho STARTTLS, 465 cho SSL)
-    secure: false, // false = STARTTLS, true = SSL
+    host: "10.3.12.28",
+    port: 25,
+    secure: false,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        type: 'custom',
+        method: 'NTLM',
+        domain: 'MOBIFONE',
+        workstation: 'CT4-CNS-CONGPV',
+        user: 'noreply.it4@mobifone.vn',
+        pass: 'Cnkt@2023'
+    },
+    customAuth: {
+        NTLM: ntlmAuth
     },
     tls: {
-        ciphers: 'SSLv3',
-        rejectUnauthorized: false // Nếu có lỗi chứng chỉ SSL
+        rejectUnauthorized: false
     }
 });
 
-let mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: "cong.phungvan@mobifone.vn",
-    subject: "Test email từ Node.js",
-    text: "Xin chào, đây là email thử nghiệm từ hệ thống!"
-};
+// Gửi email
+async function sendMail() {
+    try {
+        let info = await transporter.sendMail({
+            from: '"BC SXKD CTY4" <noreply.it4@mobifone.vn>',
+            to: "cong.phungvan@mobifone.vn", // Thay bằng email người nhận
+            subject: "Test Email",
+            text: "Nội dung email gửi bằng Nodemailer",
+            html: "<b>Nội dung email gửi bằng Nodemailer</b>"
+        });
 
-transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-        console.error("❌ Gửi email thất bại:", error);
-    } else {
-        console.log("📧 Email đã được gửi:", info.response);
+        console.log("Email sent: " + info.messageId);
+    } catch (error) {
+        console.error("Error sending email:", error);
     }
-});
+}
+
+// Chạy hàm gửi email
+sendMail();

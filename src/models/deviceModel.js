@@ -2,7 +2,7 @@ const createConnection = require('../config/database');
 
 async function getAreas() {
     const connection = await createConnection();
-    const [results] = await connection.execute('SELECT * FROM mira_area');
+    const [results] = await connection.execute('SELECT * FROM mira_area ORDER BY id DESC');
     await connection.end();
     return results;
 }

@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mira_log_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootKong
+      MYSQL_DATABASE: mira
+      MYSQL_USER: mira_user
+      MYSQL_PASSWORD: mira_password
+    ports:
+      - "3307:3306" # Sử dụng cổng 3307 để truy cập mysql từ ngoài
+    volumes:
+      - mysql_mira_data:/var/lib/mysql # save data when stop container into volume
+      - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql # backup database when start container
+    networks:
+      - miranetwork
+  nodejs:
+    build: .
+    container_name: mira_nodejs
+    restart: always
+    depends_on:
+      - mysql # wait mysql start
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=mira_user
+      - DB_PASSWORD=mira_password
+      - DB_NAME=mira
+      - DB_PORT=3306
+      - TZ=Asia/Ho_Chi_Minh
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - miranetwork
+
+volumes:
+  mysql_mira_data:
+
+
+networks:
+  miranetwork:
